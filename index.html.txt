@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bee Swarm Крафты</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; display: flex; }
+    .sidebar { width: 50px; background: #f0f0f0; padding: 10px 5px; display: flex; flex-direction: column; align-items: center; }
+    .sidebar button { width: 30px; height: 30px; margin-bottom: 10px; }
+    .content { flex-grow: 1; padding: 20px; position: relative; }
+    .result { border: 1px solid #ccc; padding: 10px; min-height: 200px; margin-bottom: 10px; white-space: pre-wrap; }
+    .input { width: 100%; padding: 10px; font-size: 16px; }
+    .side-info { position: absolute; left: 60px; top: 20px; width: 200px; border: 1px solid #ccc; padding: 10px; background: #fff; display: none; }
+    .calculator { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 1px solid #ccc; background: white; padding: 20px; display: none; }
+    .calculator input { width: 100%; font-size: 16px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <button onclick="toggleCalc()">C</button>
+    <button onclick="toggleInfo()">i</button>
+  </div>
+  <div class="content">
+    <div class="result" id="result">здесь будет результат</div>
+    <input class="input" id="search" placeholder="сюда вводить текст" oninput="searchItem()" />
+    <div class="side-info" id="sideInfo"></div>
+    <div class="calculator" id="calculator">
+      <input type="text" id="calcInput" placeholder="2+2" />
+      <button onclick="calculate()">=</button>
+      <div id="calcResult"></div>
+    </div>
+  </div>
+  <script>
+    const items = {
+      "red extract": { recipe: "10 Royal Jellies, 50 Strawberries", sources: {} },
+      "blue extract": { recipe: "10 Royal Jellies, 50 Blueberries", sources: {} },
+      "enzymes": { recipe: "10 Royal Jellies, 50 Pineapples", sources: {} },
+      "oil": { recipe: "10 Royal Jellies, 50 Sunflower Seeds", sources: {} },
+      "glue": { recipe: "10 Royal Jellies, 50 Gumdrops", sources: {} },
+      "tropical drink": { recipe: "10 Coconuts, 2 Enzymes, 2 Oils", sources: {} },
+      "gumdrops": { recipe: "3 Pineapples, 3 Strawberries, 3 Blueberries", sources: {} },
+      "moon charm": { recipe: "1 Royal Jelly, 5 Pineapples, 5 Gumdrops", sources: {} },
+      "glitter": { recipe: "25 Moon Charms, 1 Magic Bean", sources: {} },
+      "star jelly": { recipe: "100 Royal Jellies, 3 Glitter", sources: {} },
+      "purple potion": { recipe: "3 Neonberries, 3 Red Extracts, 3 Blue Extracts, 3 Glues", sources: {} },
+      "soft wax": { recipe: "5 Honeysuckles, 1 Oil, 1 Enzymes, 10 Royal Jellies", sources: {} },
+      "hard wax": { recipe: "3 Soft Waxes, 3 Enzymes, 33 Bitterberries, 33 Royal Jellies", sources: {} },
+      "swirled wax": { recipe: "3 Hard Waxes, 9 Soft Waxes, 6 Purple Potions, 3333 Royal Jellies", sources: {} },
+      "caustic wax": { recipe: "5 Hard Waxes, 5 Enzymes, 25 Neonberries, 5252 Royal Jellies", sources: {} },
+      "field dice": { recipe: "1 Soft Wax, 1 Whirligig, 1 Red Extract, 1 Blue Extract", sources: {} },
+      "smooth dice": { recipe: "3 Field Dice, 3 Soft Waxes, 3 Whirligigs, 3 Oils", sources: {} },
+      "loaded dice": { recipe: "3 Smooth Dice, 3 Hard Waxes, 3 Oils, 1 Glue", sources: {} },
+      "super smoothie": { recipe: "3 Neonberries, 3 Star Jellies, 3 Purple Potions, 6 Tropical Drinks", sources: {} },
+      "turpentine": { recipe: "10 Super Smoothies, 10 Caustic Waxes, 100 Star Jellies, 1000 Honeysuckles", sources: {} }
+    };function searchItem() {
+  const value = document.getElementById("search").value.toLowerCase();
+  const res = document.getElementById("result");
+  const side = document.getElementById("sideInfo");
+
+  if (items[value]) {
+    res.innerText = "Рецепт: " + items[value].recipe;
+    side.style.display = "block";
+  } else {
+    res.innerText = "Ресурс не найден";
+    side.style.display = "none";
+  }
+}
+
+function toggleCalc() {
+  const calc = document.getElementById("calculator");
+  calc.style.display = calc.style.display === "block" ? "none" : "block";
+}
+
+function toggleInfo() {
+  const side = document.getElementById("sideInfo");
+  side.style.display = side.style.display === "block" ? "none" : "block";
+}
+
+function calculate() {
+  const input = document.getElementById("calcInput").value;
+  try { const result = eval(input); document.getElementById("calcResult").innerText = result; }
+  catch { document.getElementById("calcResult").innerText = "Ошибка"; }
+}
+
+  </script>
+</body>
+</html>
